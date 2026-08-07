@@ -1,15 +1,22 @@
 # Samsung Galaxy Tab A 8.0 with S Pen LTE (SM-P205)
 
-Device tree for building LineageOS 23.2 for the Samsung Galaxy Tab A 8.0 with
-S Pen LTE (`SM-P205`, codename `wisdom`).
+Unified device tree for the Samsung Galaxy Tab A 8.0 with S Pen LTE
+(`SM-P205`, codename `wisdom`) Android 17 bring-up. The former platform-common
+tree is merged into this repository; the only device path is
+`device/samsung/wisdom`.
+
+This `android-17` branch is a bring-up baseline. It preserves the latest
+LineageOS 23.2 device history and is intended to be ported and validated against
+LineageOS 24.0 before release use.
 
 ## Sync
 
 ```bash
-repo init -u https://github.com/LineageOS/android.git -b lineage-23.2 --git-lfs
-mkdir -p .repo/local_manifests
-curl -L https://raw.githubusercontent.com/xuanyayi/android_manifest_samsung_wisdom/lineage-23.2/wisdom.xml \
-  -o .repo/local_manifests/wisdom.xml
+gh auth setup-git
+repo init -u https://github.com/LineageOS/android.git -b lineage-24.0 --git-lfs
+git clone -b android-17 \
+  https://github.com/Project-Wisdom/android_manifest_samsung_wisdom.git \
+  .repo/local_manifests
 repo sync -c --force-sync --no-clone-bundle --no-tags -j"$(nproc --all)"
 ```
 
@@ -19,13 +26,16 @@ repo sync -c --force-sync --no-clone-bundle --no-tags -j"$(nproc --all)"
 ./patches/samsung/wisdom/apply-patches.sh "$PWD"
 ```
 
-## Build
+## Bring-up target
 
 ```bash
 source build/envsetup.sh
 lunch lineage_wisdom-bp4a-userdebug
 mka bacon -j"$(nproc --all)"
 ```
+
+The target name is carried forward from the Android 16 tree; a successful
+Android 17 build and boot are not claimed yet.
 
 ## Recovery
 

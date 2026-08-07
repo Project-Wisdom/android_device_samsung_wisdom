@@ -1,0 +1,14 @@
+#!/vendor/bin/sh
+
+set -eu
+
+factory_dir=/mnt/vendor/efs/FactoryApp
+
+mkdir -p "$factory_dir"
+
+for file in version predefine0 predefine1 predefine2; do
+    path="$factory_dir/$file"
+    if [ ! -e "$path" ]; then
+        : > "$path"
+    fi
+done

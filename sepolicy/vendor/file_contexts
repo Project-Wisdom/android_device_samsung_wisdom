@@ -1,0 +1,47 @@
+# Devices
+/dev/mali[0-9]*                                             u:object_r:gpu_device:s0
+/dev/umts_ipc0                                              u:object_r:radio_device:s0
+/dev/fimg2d                                                 u:object_r:video_device:s0
+/dev/gnss_ipc                                               u:object_r:gps_device:s0
+/dev/scsc_h4_0                                              u:object_r:bt_device:s0
+/dev/scsc_log_collector_[0-9]+                              u:object_r:vendor_wlbtd_device:s0
+/dev/scsc_log_in_dram_[0-9]+                                u:object_r:vendor_wlbtd_device:s0
+/dev/mx_[0-9]+_debug_sampler                                u:object_r:vendor_wlbtd_device:s0
+/dev/mx_[0-9]+_m[0-9]+_gdb                                  u:object_r:vendor_wlbtd_device:s0
+/dev/mx_[0-9]+_r[0-9]+_gdb                                  u:object_r:vendor_wlbtd_device:s0
+/dev/mx_[0-9]+_mmap                                         u:object_r:vendor_wlbtd_device:s0
+/dev/mx_client_test_[0-9]+                                  u:object_r:vendor_wlbtd_device:s0
+/dev/usb_mtp_gadget                                         u:object_r:mtp_device:s0
+/dev/s5p-smem                                               u:object_r:drm_device:s0
+/dev/m2m1shot_scaler0                                       u:object_r:m2m1shot_device:s0
+
+# Blocks
+/dev/block/zram0                                            u:object_r:swap_block_device:s0
+/dev/block/platform/13500000.dwmmc0/by-name/omr             u:object_r:metadata_block_device:s0
+
+# efs
+/mnt/vendor/cpefs(/.*)?                                     u:object_r:efs_file:s0
+/efs/FactoryApp(/.*)?                                      u:object_r:app_efs_file:s0
+/mnt/vendor/efs/FactoryApp(/.*)?                           u:object_r:app_efs_file:s0
+
+# factory
+/factory(/.*)?                                              u:object_r:factory_file:s0
+
+# data files
+/data/vendor/mediadrm(/.*)?                                 u:object_r:mediadrm_data_file:s0
+/data/camera(/.*)?                                          u:object_r:camera_data_file:s0
+/data/vendor/camera(/.*)?                                   u:object_r:camera_vendor_data_file:s0
+/data/vendor/log/wifi(/.*)?                                 u:object_r:vendor_wlbtd_log_file:s0
+
+# Root files copied into target_files for system image generation.
+/file_contexts\.bin                                          u:object_r:file_contexts_file:s0
+
+# Vendor
+/(vendor|system/vendor)/bin/main_abox                                                                  u:object_r:abox_exec:s0
+/(vendor|system/vendor)/bin/secril_config_svc\.p205                                                    u:object_r:secril_config_svc_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@[0-9]\.[0-9]-service\.universal7904 u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service\.software                    u:object_r:hal_gatekeeper_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.usb\.gadget@1\.2-service                             u:object_r:hal_usb_gadget_default_exec:s0
+/(vendor|system/vendor)/bin/init_sensor_factory                                                        u:object_r:init_sensor_factory_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.samsung\.hardware\.camera\.provider@4\.0-service u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/wlbtd                                                                       u:object_r:wlbtd_exec:s0

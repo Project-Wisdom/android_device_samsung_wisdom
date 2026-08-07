@@ -1,0 +1,41 @@
+# File types
+type factory_file, file_type;
+
+# debugfs types
+type debugfs_mali, fs_type, debugfs_type;
+type debugfs_mali_mem, fs_type, debugfs_type;
+type debugfs_ion, fs_type, debugfs_type;
+type debugfs_ion_dma, fs_type, debugfs_type;
+
+# proc
+type proc_swapiness, fs_type, proc_type;
+
+# data types
+type camera_vendor_data_file, file_type, data_file_type;
+type mediadrm_data_file, file_type, data_file_type;
+type vendor_wlbtd_log_file, file_type, data_file_type;
+
+# sysfs types
+type sysfs_abox_writable, sysfs_type, rw_fs_type, fs_type;
+type sysfs_block, sysfs_type, r_fs_type, fs_type;
+type sysfs_block_writable, sysfs_type, rw_fs_type, fs_type;
+type sysfs_sensor_writable, sysfs_type, rw_fs_type, fs_type;
+type sysfs_input_writable, sysfs_type, rw_fs_type, fs_type;
+type sysfs_decon, sysfs_type, r_fs_type, fs_type;
+type sysfs_v4l, sysfs_type, r_fs_type, fs_type;
+type sysfs_v4l_mfc, sysfs_type, r_fs_type, fs_type;
+type sysfs_v4l_smfc, sysfs_type, r_fs_type, fs_type;
+type sysfs_v4l_fimc, sysfs_type, r_fs_type, fs_type;
+type sysfs_graphics, fs_type, sysfs_type;
+type sysfs_multipdp, fs_type, sysfs_type;
+type sysfs_sec, fs_type, sysfs_type;
+type sysfs_gps, fs_type, sysfs_type;
+type sysfs_brightness, fs_type, sysfs_type;
+type sysfs_charger, fs_type, sysfs_type;
+type sysfs_modem, fs_type, sysfs_type;
+type sysfs_camera, fs_type, sysfs_type;
+type sysfs_ss_writable, sysfs_type, rw_fs_type, fs_type;
+type sysfs_gpu_writable, sysfs_type, rw_fs_type, fs_type;
+type sysfs_hmp_boost, sysfs_type, rw_fs_type, fs_type;
+type sysfs_info, sysfs_type, r_fs_type, fs_type;
+type vendor_wlbtd_debugfs, fs_type, debugfs_type;

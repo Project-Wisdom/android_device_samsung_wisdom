@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="def_screen_brightness_automatic_mode">true</bool>
+    <integer name="def_night_display_auto_mode">1</integer>
+    <integer name="def_night_display_custom_start_time">79200000</integer>
+    <integer name="def_night_display_custom_end_time">21600000</integer>
+</resources>

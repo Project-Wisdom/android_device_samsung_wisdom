@@ -1,0 +1,2 @@
+# Allow adoptable-storage migration to copy files into the volume media root.
+allow vold media_userdir_file:file create_file_perms;

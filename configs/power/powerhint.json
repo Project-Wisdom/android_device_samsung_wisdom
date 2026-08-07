@@ -1,0 +1,226 @@
+{
+    "Nodes": [
+        {
+            "Name": "CPULittleClusterMinFreq",
+            "Path": "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq",
+            "Values": [
+                "1586000",
+                "1352000",
+                "449000"
+            ],
+            "DefaultIndex": 2,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPUBigClusterMinFreq",
+            "Path": "/sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq",
+            "Values": [
+                "1768000",
+                "1664000",
+                "936000"
+            ],
+            "DefaultIndex": 2,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "HMPSelectiveBoostPulse",
+            "Path": "/sys/kernel/hmp/selective_boostpulse",
+            "Values": [
+                "700000",
+                "350000",
+                "0"
+            ],
+            "DefaultIndex": 2,
+            "ResetOnInit": false,
+            "AllowFailure": true
+        },
+        {
+            "Name": "TASchedtuneBoost",
+            "Path": "/dev/stune/top-app/schedtune.boost",
+            "Values": [
+                "30",
+                "10"
+            ],
+            "DefaultIndex": 1,
+            "ResetOnInit": true,
+            "AllowFailure": true
+        },
+        {
+            "Name": "GPUMinFreq",
+            "Path": "/sys/kernel/gpu/gpu_min_clock",
+            "Values": [
+                "676000",
+                "343000"
+            ],
+            "DefaultIndex": 1,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPULittleClusterIOIsBusy",
+            "Path": "/sys/devices/system/cpu/cpu0/cpufreq/interactive/io_is_busy",
+            "Values": [
+                "0",
+                "1"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPUBoostPulse",
+            "Path": "/sys/devices/system/cpu/cpu0/cpufreq/interactive/boostpulse",
+            "Values": [
+                "0",
+                "1"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPUBigClusterIOIsBusy",
+            "Path": "/sys/devices/system/cpu/cpu6/cpufreq/interactive/io_is_busy",
+            "Values": [
+                "0",
+                "1"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "CPUBigBoostPulse",
+            "Path": "/sys/devices/system/cpu/cpu6/cpufreq/interactive/boostpulse",
+            "Values": [
+                "0",
+                "1"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": true
+        },
+        {
+            "Name": "TouchscreenEnable",
+            "Path": "/sys/class/sec/tsp/input/enabled",
+            "Values": [
+                "1",
+                "0"
+            ],
+            "DefaultIndex": 1,
+            "ResetOnInit": false
+        },
+        {
+            "Name": "DoubleTapToWakeEnable",
+            "Path": "/sys/class/sec/tsp/cmd",
+            "Values": [
+                "aot_enable,0",
+                "aot_enable,1"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": false
+        },
+        {
+            "Name": "SPenWakeEnable",
+            "Path": "/sys/class/sec/sec_epen/aot_enable",
+            "Values": [
+                "0",
+                "1"
+            ],
+            "DefaultIndex": 0,
+            "ResetOnInit": false
+        }
+    ],
+    "Actions": [
+        {
+            "PowerHint": "INTERACTION",
+            "Type": "DoHint",
+            "Value": "WISDOM_INTERACTION"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "CPULittleClusterMinFreq",
+            "Duration": 700,
+            "Value": "1352000"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 700,
+            "Value": "1664000"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "HMPSelectiveBoostPulse",
+            "Duration": 1,
+            "Value": "700000"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "TASchedtuneBoost",
+            "Duration": 700,
+            "Value": "30"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "GPUMinFreq",
+            "Duration": 700,
+            "Value": "676000"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "CPULittleClusterIOIsBusy",
+            "Duration": 700,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "CPUBoostPulse",
+            "Duration": 700,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "CPUBigBoostPulse",
+            "Duration": 700,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "WISDOM_INTERACTION",
+            "Node": "CPUBigClusterIOIsBusy",
+            "Duration": 700,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "LAUNCH",
+            "Node": "CPULittleClusterMinFreq",
+            "Duration": 700,
+            "Value": "1586000"
+        },
+        {
+            "PowerHint": "LAUNCH",
+            "Node": "CPUBigClusterMinFreq",
+            "Duration": 700,
+            "Value": "1768000"
+        },
+        {
+            "PowerHint": "LAUNCH",
+            "Node": "HMPSelectiveBoostPulse",
+            "Duration": 1,
+            "Value": "700000"
+        },
+        {
+            "PowerHint": "DOUBLE_TAP_TO_WAKE",
+            "Node": "DoubleTapToWakeEnable",
+            "Duration": 0,
+            "Value": "aot_enable,1"
+        },
+        {
+            "PowerHint": "DOUBLE_TAP_TO_WAKE",
+            "Node": "SPenWakeEnable",
+            "Duration": 0,
+            "Value": "1"
+        },
+        {
+            "PowerHint": "INTERACTIVE",
+            "Node": "TouchscreenEnable",
+            "Duration": 0,
+            "Value": "1"
+        }
+    ]
+}

@@ -1,0 +1,70 @@
+## Audio
+ro.config.vc_call_vol_steps=7
+ro.config.alarm_vol_steps=15
+ro.vendor.audio.disable_latency_mode_api=true
+
+## Bluetooth
+bluetooth.device.class_of_device=90,1,16
+bluetooth.device.default_name=Galaxy Tab A 8.0 with S Pen
+bluetooth.profile.asha.central.enabled=true
+bluetooth.profile.a2dp.source.enabled=true
+bluetooth.profile.avrcp.target.enabled=true
+bluetooth.profile.bas.client.enabled=true
+bluetooth.profile.gatt.enabled=true
+bluetooth.profile.hfp.ag.enabled=true
+bluetooth.profile.hid.device.enabled=true
+bluetooth.profile.hid.host.enabled=true
+bluetooth.profile.map.server.enabled=true
+bluetooth.profile.opp.enabled=true
+bluetooth.profile.pan.nap.enabled=true
+bluetooth.profile.pan.panu.enabled=true
+bluetooth.profile.pbap.server.enabled=true
+bluetooth.profile.sap.server.enabled=true
+
+## Dalvik
+dalvik.vm.lockprof.threshold=500
+
+## Fdsan
+# Set fdsan to the warn_once severity level
+debug.fdsan=warn_once
+
+## FRP
+# Disable invocation of oem_lock
+ro.frp.pst=/dev/block/persistent
+
+## OMX
+# Set csc support in OMX
+# If not set or set to 0, OMX will only use BT.601 colorspace.
+ro.vendor.cscsupported=1
+
+## OpenGLES
+ro.opengles.version=196610
+
+## RIL
+ro.carrier=unknown
+ro.radio.noril=no
+vendor.rild.libpath=/vendor/lib64/libsec-ril.so
+vendor.sec.rild.libpath=/vendor/lib64/libsec-ril.so
+
+# LTE/GSM/WCDMA. This build does not ship IMS/VoLTE, so normal calls use the
+# Samsung RIL's non-IMS CS path. Keeping LTE in the default mode preserves
+# service on LTE-only coverage and allows call-time 3G fallback handling.
+ro.telephony.default_network=9
+ro.vendor.radio.default_network=9
+ro.vendor.radio.default_network_by=telephony.prop_9
+
+## SoC
+ro.soc.manufacturer=Samsung
+ro.soc.model=Exynos 7904
+
+## Surfaceflinger
+debug.sf.latch_unsignaled=1
+ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
+## Vibrator HAL
+ro.vendor.vibrator_hal.click_duration=50
+ro.vendor.vibrator_hal.tick_duration=45
+ro.vendor.vibrator_hal.texture_tick_duration=30
+
+## Wifi direct
+wifi.direct.interface=p2p0

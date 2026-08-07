@@ -1,0 +1,11 @@
+# /dev/m2m1shot_scaler0
+type m2m1shot_device, dev_type;
+
+# gps
+type gps_device, dev_type;
+
+# drm
+type drm_device, dev_type;
+
+# SCSC WLBT dump/control devices used by wlbtd.
+type vendor_wlbtd_device, dev_type;

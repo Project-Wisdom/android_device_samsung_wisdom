@@ -1,0 +1,22 @@
+on init
+    # Prevent hung task watchdog from firing during slow recovery operations
+    write /proc/sys/kernel/hung_task_timeout_secs 0
+
+    # Enable configfs ADB in recovery.
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "13600000.dwc3"
+
+    # Force the Exynos framebuffer to reinitialize after bootloader handoff.
+    write /sys/class/graphics/fb0/blank 1
+    write /sys/class/graphics/fb0/blank 0
+
+on fs
+    export ANDROID_ROOT /system_root
+
+    # Create the bootdevice symlink so recovery can find by-name partitions.
+    wait /dev/block/platform/13500000.dwmmc0
+    symlink /dev/block/platform/13500000.dwmmc0 /dev/block/bootdevice
+
+on boot
+    setprop service.adb.root 1
+    setprop sys.usb.config adb

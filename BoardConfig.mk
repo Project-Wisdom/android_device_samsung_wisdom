@@ -57,16 +57,16 @@ BOARD_SEPOLICY_TEE_FLAVOR := mobicore
 # SPL
 VENDOR_SECURITY_PATCH := 2023-02-01
 
-# Inherit common board flags
-include device/samsung/universal7904-common/BoardConfigCommon.mk
+# Inherit the unified wisdom platform board flags.
+include device/samsung/wisdom/BoardConfigPlatform.mk
 
 # Keep boot image headers aligned with the SM-P205 images that the bootloader
 # accepts. The prebuilt TWRP recovery is copied as-is by p205_bootimg.mk.
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --second_offset 0x00f00000 --set_empty_second_addr --tags_offset 0x00000100 --header_version 1 --board SRPSA16A009RU --os_version 12.0.0 --os_patch_level 2099-12
 BOARD_RECOVERY_MKBOOTIMG_ARGS := $(BOARD_MKBOOTIMG_ARGS)
 
-# p205-specific partition sizes. Keep these after common BoardConfig so the
-# shared wisdom defaults do not override the real SM-P205 layout.
+# p205-specific partition sizes. Keep these after the platform BoardConfig so
+# the platform defaults do not override the real SM-P205 layout.
 TARGET_COPY_OUT_PRODUCT := product
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4227858432
 BOARD_VENDORIMAGE_PARTITION_SIZE := 570425344

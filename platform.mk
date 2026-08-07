@@ -1,6 +1,3 @@
-# Call proprietary blob setup
-$(call inherit-product, vendor/samsung/universal7904-common/universal7904-common-vendor.mk)
-
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
 
@@ -30,14 +27,14 @@ PRODUCT_COPY_FILES += \
 
 # TFA speaker amplifier firmware is requested before vendor is mounted.
 PRODUCT_COPY_FILES += \
-    vendor/samsung/universal7904-common/proprietary/vendor/firmware/Tfa9872.cnt:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/Tfa9872.cnt \
-    vendor/samsung/universal7904-common/proprietary/vendor/firmware/Tfa9896.cnt:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/Tfa9896.cnt \
-    vendor/samsung/universal7904-common/proprietary/vendor/firmware/tfadsp.bin:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/tfadsp.bin
+    vendor/samsung/wisdom/proprietary/vendor/firmware/Tfa9872.cnt:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/Tfa9872.cnt \
+    vendor/samsung/wisdom/proprietary/vendor/firmware/Tfa9896.cnt:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/Tfa9896.cnt \
+    vendor/samsung/wisdom/proprietary/vendor/firmware/tfadsp.bin:$(TARGET_COPY_OUT_RAMDISK)/lib/firmware/tfadsp.bin
 
 PRODUCT_COPY_FILES += \
-    vendor/samsung/universal7904-common/proprietary/vendor/firmware/Tfa9872.cnt:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/Tfa9872.cnt \
-    vendor/samsung/universal7904-common/proprietary/vendor/firmware/Tfa9896.cnt:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/Tfa9896.cnt \
-    vendor/samsung/universal7904-common/proprietary/vendor/firmware/tfadsp.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/tfadsp.bin
+    vendor/samsung/wisdom/proprietary/vendor/firmware/Tfa9872.cnt:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/Tfa9872.cnt \
+    vendor/samsung/wisdom/proprietary/vendor/firmware/Tfa9896.cnt:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/Tfa9896.cnt \
+    vendor/samsung/wisdom/proprietary/vendor/firmware/tfadsp.bin:$(TARGET_COPY_OUT_RECOVERY)/root/lib/firmware/tfadsp.bin
 
 # Bluetooth
 PRODUCT_PACKAGES += \

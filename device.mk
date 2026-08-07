@@ -1,7 +1,7 @@
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Basic hardware bring-up defaults. This must be set before inheriting the
-# common/vendor products because they gate camera packages on this variable.
+# platform/vendor products because they gate camera packages on this variable.
 TARGET_ENABLE_CAMERA_BRINGUP ?= true
 
 LINEAGE_SKIP_CUSTOM_LOCALES := true
@@ -29,8 +29,8 @@ PRODUCT_VENDOR_PROPERTIES += \
     ro.recovery.usb.adb.pid=685D \
     ro.recovery.usb.fastboot.pid=685D
 
-# Inherit common device configuration
-$(call inherit-product, device/samsung/universal7904-common/universal7904-common.mk)
+# Inherit the unified wisdom platform configuration.
+$(call inherit-product, device/samsung/wisdom/platform.mk)
 
 $(call inherit-product, vendor/samsung/wisdom/wisdom-vendor.mk)
 
@@ -121,7 +121,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
 
 # Navigation bar mode overlays. The 2-button overlay is inherited from the
-# common Lineage tablet config and is harmless to keep for now.
+# Lineage tablet config and is harmless to keep for now.
 PRODUCT_PACKAGES += \
     Dialer \
     NavigationBarMode3ButtonOverlay \

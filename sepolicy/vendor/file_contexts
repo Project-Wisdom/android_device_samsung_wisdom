@@ -1,5 +1,7 @@
 # Devices
 /dev/mali[0-9]*                                             u:object_r:gpu_device:s0
+/dev/ion                                                    u:object_r:ion_device:s0
+/dev/socket/pps                                              u:object_r:pps_socket:s0
 /dev/umts_ipc0                                              u:object_r:radio_device:s0
 /dev/fimg2d                                                 u:object_r:video_device:s0
 /dev/gnss_ipc                                               u:object_r:gps_device:s0

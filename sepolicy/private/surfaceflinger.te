@@ -1,0 +1,2 @@
+# SM-P205 uses the stock Exynos gralloc3/ION path for client buffers.
+allow surfaceflinger ion_device:chr_file r_file_perms;

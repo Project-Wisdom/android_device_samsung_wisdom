@@ -7,6 +7,7 @@ allow hal_camera_default hal_graphics_composer_default:fd use;
 allow hal_camera_default system_server:binder call;
 allow hal_camera_default camera_vendor_data_file:dir rw_dir_perms;
 allow hal_camera_default camera_vendor_data_file:file create_file_perms;
+allow hal_camera_default ion_device:chr_file r_file_perms;
 allow hal_camera_default m2m1shot_device:chr_file rw_file_perms;
 allow hal_camera_default sysfs_battery:dir search;
 allow hal_camera_default sysfs_battery_writable:dir search;

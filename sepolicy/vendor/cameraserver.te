@@ -1,0 +1,2 @@
+# The legacy Exynos camera/gralloc stack still allocates preview buffers via ION.
+allow cameraserver ion_device:chr_file rw_file_perms;

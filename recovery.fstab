@@ -8,7 +8,6 @@
 /dev/block/platform/13500000.dwmmc0/by-name/product    /product            ext4    ro,noatime                                                                wait,nofail
 /dev/block/platform/13500000.dwmmc0/by-name/cache      /cache              ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check
 /dev/block/platform/13500000.dwmmc0/by-name/omr        /metadata           ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,formattable,check
-/dev/block/platform/13500000.dwmmc0/by-name/omr        /omr                ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check
 /dev/block/platform/13500000.dwmmc0/by-name/userdata   /data               ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,nofsck,formattable,fileencryption=aes-256-xts:aes-256-cts:v1,reservedsize=128M
 /dev/block/platform/13500000.dwmmc0/by-name/efs        /efs                ext4    noatime,nosuid,nodev,noauto_da_alloc,discard,journal_checksum,data=ordered,errors=panic    wait,check
 /dev/block/platform/13500000.dwmmc0/by-name/misc       /misc               emmc    defaults                                                                  defaults

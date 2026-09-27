@@ -1,0 +1,2 @@
+# The stock gralloc1 implementation imports ION handles in client processes.
+allow appdomain ion_device:chr_file r_file_perms;

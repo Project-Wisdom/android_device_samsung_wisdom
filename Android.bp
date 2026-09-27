@@ -1,6 +1,7 @@
 soong_namespace {
     imports: [
         "vendor/samsung/wisdom",
+        "vendor/samsung/wisdom/platform",
     ],
 }
 
@@ -10,4 +11,30 @@ vintf_compatibility_matrix {
     srcs: [
         "configs/compatibility_matrix.2.xml",
     ],
+}
+
+// Android 17 no longer bundles the deprecated Android 11 FCM (level 5).
+// This device's vendor manifest still targets level 5, so provide AOSP's
+// intentionally empty compatibility matrix for that legacy level.
+vintf_compatibility_matrix {
+    name: "framework_compatibility_matrix.p205_fcm_5.xml",
+    stem: "compatibility_matrix.5.xml",
+    srcs: [
+        "configs/compatibility_matrix.5.xml",
+    ],
+}
+
+// The stock camera provider exposes this vendor interface, but Samsung does not
+// ship its HIDL source. Register it for init and VINTF metadata validation.
+prebuilt_hidl_interfaces {
+    name: "hidl_vendor_samsung_camera_provider_interfaces_p205",
+    interfaces: [
+        "vendor.samsung.hardware.camera.provider@4.0::ISehCameraProvider",
+    ],
+}
+
+cc_binary {
+    name: "test_close_range",
+    srcs: ["tools/test_close_range.c"],
+    vendor_available: true,
 }

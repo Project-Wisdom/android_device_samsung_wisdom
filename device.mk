@@ -128,4 +128,5 @@ PRODUCT_PACKAGES += \
     NavigationBarModeGesturalOverlay \
     TransparentNavigationBarOverlay \
     PhhImsFrameworkOverlay \
-    framework_compatibility_matrix.p205_kernel_2.xml
+    framework_compatibility_matrix.p205_kernel_2.xml \
+    framework_compatibility_matrix.p205_fcm_5.xml

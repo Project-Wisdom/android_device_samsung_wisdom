@@ -1,1 +1,2 @@
 allow cbd sysfs_info:file { open read };
+wakelock_use(cbd)

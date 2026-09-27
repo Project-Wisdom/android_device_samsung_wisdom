@@ -138,7 +138,8 @@
 /dev/s5p-smem             0660   system     system
 
 #cbd
-/dev/block/mmcblk0p5      0400   radio      radio
+# Note: /dev/block/mmcblk0p5 is cpefs (ext4 filesystem mounted by fs_mgr with wait,check,nofail).
+# Leave it to default block device permissions (root:root 0600) so fsck can run.
 /dev/umts_ramdump0        0660   radio      radio
 
 # DM tools

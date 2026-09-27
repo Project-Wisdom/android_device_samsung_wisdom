@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kernel 4.4 on Exynos 7904 lacks tc bpf clsact support; use iptables/netfilter forwarding -->
+    <bool translatable="false" name="config_tether_enable_bpf_offload">false</bool>
+</resources>

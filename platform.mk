@@ -43,9 +43,6 @@ PRODUCT_PACKAGES += \
     audio.bluetooth.default \
     libbt-vendor
 
-PRODUCT_COPY_FILES += \
-    hardware/samsung_slsi/libbt/conf/bt_did.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth/bt_did.conf \
-    hardware/samsung_slsi/libbt/conf/bt_vendor.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth/bt_vendor.conf
 
 # Boot animation
 TARGET_SCREEN_HEIGHT := 1920
@@ -61,6 +58,7 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.5.vendor \
     android.hardware.camera.provider@2.6.vendor \
     android.hardware.graphics.mapper@4.0.vendor \
+    libGrallocMapperCamera \
     libexif.vendor \
     libfmq.vendor \
     libgralloctypes.vendor
@@ -109,6 +107,8 @@ PRODUCT_PACKAGES += \
     libion \
     libion.vendor \
     libprocessgroup_shim \
+    libcrypto_shim \
+    libcrypto_shim.vendor \
     libshim_graphicsmapper_legacy_lockasync \
     libutils-v32
 
@@ -242,6 +242,7 @@ PRODUCT_PACKAGES += \
     android.hardware.radio@1.4.vendor \
     android.hardware.radio.config@1.2.vendor \
     android.hardware.radio.deprecated@1.0.vendor \
+    libexpat.vendor \
     libnetutils.vendor \
     libsqlite.vendor \
     vendor.samsung.hardware.radio@2.0.vendor \
@@ -272,10 +273,12 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/google/interfaces \
     hardware/google/pixel \
+    hardware/google/pixel/power-libperfmgr \
     hardware/samsung \
     hardware/samsung_slsi-linaro/exynos/gralloc/gralloc3 \
     hardware/samsung_slsi-linaro/openmax \
-    hardware/samsung_slsi/libbt
+    hardware/samsung_slsi/libbt \
+    hardware/samsung_slsi/scsc_wifibt/wpa_supplicant_lib
 
 # Speed profile services and wifi-service to reduce RAM and storage
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
@@ -304,18 +307,21 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.wifi-service \
     hostapd \
+    TetheringOverlay \
     WifiOverlay \
-    wpa_supplicant
+    wpa_supplicant \
+    wpa_supplicant.conf
 
+# Install the generated base config for the AIDL supplicant; keep Wisdom's overlays.
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # Experimental userspace IMS bring-up.
 PRODUCT_PACKAGES += \
     Iwlan \
-    PhhIms
+    PhhIms \
+    QualifiedNetworksService
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/default-permissions-me.phh.ims.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/default-permissions/default-permissions-me.phh.ims.xml \

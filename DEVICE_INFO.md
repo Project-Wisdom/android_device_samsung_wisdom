@@ -1,14 +1,17 @@
 # Samsung SM-P205 Device Facts
 
-This file records hardware facts used by the `lineage_wisdom` bring-up. Do not
-blindly encode every public spec into Android resources; only use values that
-affect framework, partition, or HAL behavior.
+This file records hardware facts for the `wisdom` device tree. The DerpFest 17
+product remains named `lineage_wisdom` because DerpFest's `breakfast` helper
+resolves device codenames to that prefix; its Android 17.0 build target is
+`lineage_wisdom-cp2a-userdebug`. Do not blindly encode every public spec into
+Android resources; only use values that affect framework, partition, or HAL
+behavior.
 
 ## Identity
 
 - Marketing name: Samsung Galaxy Tab A 8.0 with S Pen (2019), LTE
 - Model: SM-P205
-- Lineage target in this tree: `lineage_wisdom`
+- DerpFest 17 product/lunch target: `lineage_wisdom` / `lineage_wisdom-cp2a-userdebug`
 - Upstream community codename: `wisdom`
 - Product/device assert aliases: `p205,wisdom,wisdomx`
 
@@ -29,15 +32,21 @@ affect framework, partition, or HAL behavior.
   - `device/samsung/wisdom/prebuilt/Image`
   - `device/samsung/wisdom/prebuilt/recovery_dtbo`
   - `device/samsung/wisdom/prebuilt/vbmeta.img`
-  `BoardConfig.mk` deliberately forces the prebuilt kernel and prebuilt dtbo
-  for rescue builds while userspace boot blockers are being removed. These
-  files must be replaced together from the same selected stock baseline; do not
-  mix a recovery dtbo with blobs or firmware from another build.
+  `BoardConfig.mk` retains the prebuilt kernel as a rescue fallback, but the
+  current diagnostic build selects the source-built 4.4.302 kernel. The prebuilt
+  dtbo remains the recovery-compatible base. These files must be replaced
+  together from the same selected stock baseline; do not mix a recovery dtbo
+  with blobs or firmware from another build.
 - Recovery in this device tree is Lineage Recovery. Standalone third-party
   recovery experiments are not the design baseline for `lineage_wisdom` bring-up.
-- Long-term source-kernel bring-up should keep `wisdom_defconfig`, add/validate
-  p205 DTS entries and matching `BOARD_DTB_CFG`/`BOARD_DTBO_CFG`, then unset
-  `TARGET_FORCE_PREBUILT_KERNEL`.
+- Current diagnostic bring-up keeps `wisdom_defconfig` and leaves
+  `TARGET_FORCE_PREBUILT_KERNEL` unset. The permissive SELinux and panic-to-
+  recovery settings are temporary diagnostics; restore enforcing mode and
+  validate the p205 DTS before a release build.
+- The current boot test deliberately removes the `/data` `fileencryption` option
+  from boot, vendor, and recovery fstab files; userdata was formatted with the
+  user's authorization. This is a bring-up setting only. Revisit encryption
+  before any release build, and preserve the user's IMS/CarrierConfig/OMC tree.
 - Bluetooth bring-up is enabled through the Samsung SLSI H4 vendor library and
   `/dev/scsc_h4_0`. The 2026-05-25 pstore logs previously showed
   `com.android.bluetooth` aborting when the HCI service could not start, so

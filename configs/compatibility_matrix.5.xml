@@ -1,0 +1,4 @@
+<compatibility-matrix version="1.0" type="framework" level="5">
+    <!-- Android R FCM is deprecated; keep its empty compatibility matrix for
+         legacy vendor images that still declare target-level 5. -->
+</compatibility-matrix>

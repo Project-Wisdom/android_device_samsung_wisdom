@@ -4,3 +4,6 @@ ro.crypto.volume.filenames_mode=aes-256-cts
 # LMKD
 ro.lmk.use_minfree_levels=false
 ro.lmk.use_psi=true
+
+# Stylus
+persist.debug.input.force_enable_stylus_pointer_icon=true

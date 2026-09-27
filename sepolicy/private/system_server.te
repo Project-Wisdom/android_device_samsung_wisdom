@@ -1,0 +1,2 @@
+# The legacy Exynos graphics path exposes ION handles through system_server.
+allow system_server ion_device:chr_file r_file_perms;

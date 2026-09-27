@@ -13,16 +13,15 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 
 # Kernel
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/Image
-TARGET_FORCE_PREBUILT_KERNEL := true
+# TARGET_FORCE_PREBUILT_KERNEL := true
 TARGET_KERNEL_CONFIG := wisdom_defconfig
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/p205_bootimg.mk
 TARGET_CUSTOM_DTBTOOL := dtbhtoolExynos
 BOARD_BOOT_HEADER_VERSION := 1
-BOARD_KERNEL_CMDLINE := androidboot.hardware=exynos7904 androidboot.selinux=permissive firmware_class.path=/vendor/firmware
+BOARD_KERNEL_CMDLINE := androidboot.hardware=exynos7904 firmware_class.path=/vendor/firmware
 
-# Keep the known-booting 4.4.177 p205 kernel until the 4.4.302 source kernel
-# is boot-stable on this tablet.
+# Enforcing mode is standard; permissive cmdline removed.
 
 # Use the known-booting SM-P205 recovery DTBO as a base until the source kernel
 # is stable, but keep its speaker route aligned with the runtime
@@ -36,20 +35,31 @@ BOARD_ROOT_EXTRA_SYMLINKS := \
     /mnt/vendor/efs:/factory
 
 # Recovery
-# This device tree packages a validated prebuilt TWRP 12.1 recovery image for
-# SM-P205, instead of rebuilding recovery from the LineageOS source tree.
-BOARD_PREBUILT_RECOVERYIMAGE := $(DEVICE_PATH)/prebuilt/recovery.img
+# Build native DerpFest recovery image from the source tree.
+# BOARD_PREBUILT_RECOVERYIMAGE := $(DEVICE_PATH)/prebuilt/recovery.img
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_USES_FULL_RECOVERY_IMAGE := true
-BOOTLOADER_MESSAGE_OFFSET := 2048
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
+# Ramdisk compression: SM-P205 has a strictly bounded 38 MiB recovery partition.
+# Modern 64-bit Android 17 recovery ramdisk + 26 MB kernel exceeds 38 MiB with gzip.
+# XZ compresses the ramdisk from 15.2 MB down to 9.1 MB, allowing full native recovery to fit comfortably.
+BOARD_RAMDISK_USE_XZ := true
+
+# Bootloader Control Block (BCB) offset in /misc for Samsung Exynos
+BOARD_RECOVERY_BLDRMSG_OFFSET := 2048
+TARGET_RECOVERY_BLDRMSG_OFFSET := 2048
+$(call soong_config_set,lineage_recovery,bootloader_message_offset,2048)
+
 BOARD_RECOVERY_IMAGE_PREPARE += \
     grep -q '^ro.adb.secure.recovery=' $(TARGET_RECOVERY_ROOT_OUT)/prop.default || echo 'ro.adb.secure.recovery=0' >> $(TARGET_RECOVERY_ROOT_OUT)/prop.default; \
-    grep -q '^service.adb.root=' $(TARGET_RECOVERY_ROOT_OUT)/prop.default || echo 'service.adb.root=1' >> $(TARGET_RECOVERY_ROOT_OUT)/prop.default;
+    grep -q '^service.adb.root=' $(TARGET_RECOVERY_ROOT_OUT)/prop.default || echo 'service.adb.root=1' >> $(TARGET_RECOVERY_ROOT_OUT)/prop.default; \
+    cp -f $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.fstab $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.fstab.exynos7904; \
+    cp -f $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.fstab $(TARGET_RECOVERY_ROOT_OUT)/system/etc/fstab.exynos7904; \
+    cp -f $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.fstab $(TARGET_RECOVERY_ROOT_OUT)/system/etc/fstab;
 
-# Prebuilt Recovery Kernel
-TARGET_PREBUILT_RECOVERY_KERNEL := $(DEVICE_PATH)/prebuilt/recovery_Image
+# Prebuilt Recovery Kernel (disabled: use source kernel)
+# TARGET_PREBUILT_RECOVERY_KERNEL := $(DEVICE_PATH)/prebuilt/recovery_Image
 
 # Sepolicy
 BOARD_SEPOLICY_TEE_FLAVOR := mobicore
@@ -62,7 +72,11 @@ include device/samsung/wisdom/BoardConfigPlatform.mk
 
 # Keep boot image headers aligned with the SM-P205 images that the bootloader
 # accepts. The prebuilt TWRP recovery is copied as-is by p205_bootimg.mk.
-BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --second_offset 0x00f00000 --set_empty_second_addr --tags_offset 0x00000100 --header_version 1 --board SRPSA16A009RU --os_version 12.0.0 --os_patch_level 2099-12
+# mkbootimg no longer accepts --set_empty_second_addr. Preserve the value in
+# the v1 header after image creation; the P205 bootloader expects it with an
+# empty second stage.
+P205_BOOTIMAGE_EMPTY_SECOND_ADDR := 0x10f00000
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --second_offset 0x00f00000 --tags_offset 0x00000100 --header_version 1 --board SRPSA16A009RU --os_version 12.0.0 --os_patch_level 2099-12
 BOARD_RECOVERY_MKBOOTIMG_ARGS := $(BOARD_MKBOOTIMG_ARGS)
 
 # p205-specific partition sizes. Keep these after the platform BoardConfig so
@@ -71,6 +85,10 @@ TARGET_COPY_OUT_PRODUCT := product
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 4227858432
 BOARD_VENDORIMAGE_PARTITION_SIZE := 570425344
 BOARD_PRODUCTIMAGE_PARTITION_SIZE := 436207616
+# This product image contains a few hundred files; the ext4 default creates
+# one inode per 4 KiB block and wastes about 25 MiB on the inode table. Keep
+# generous inode headroom for later IMS overlays without shrinking the app set.
+BOARD_PRODUCTIMAGE_EXTFS_INODE_COUNT := 8192
 BOARD_CACHEIMAGE_PARTITION_SIZE := 367001600
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 25354567680
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608

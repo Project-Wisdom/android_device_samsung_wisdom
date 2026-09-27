@@ -28,7 +28,12 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
 BOARD_HAVE_BLUETOOTH_SLSI := true
 
 # Display
-TARGET_SCREEN_DENSITY := 360
+TARGET_SCREEN_DENSITY := 320
+
+# SM-P205 uses Samsung's gralloc3 stack with a HIDL mapper 2.1 passthrough
+# implementation. Android 17 otherwise expects mapper 4.x and aborts before
+# it can use this device's legacy mapper.
+$(call soong_config_set_bool,libui,legacy_gralloc,true)
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -45,7 +50,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 --tags_offset 0x00000100
 TARGET_KERNEL_SOURCE := kernel/samsung/wisdom
 TARGET_KERNEL_ADDITIONAL_FLAGS += LD=ld.lld AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip
-TARGET_KERNEL_ADDITIONAL_FLAGS := HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
+TARGET_KERNEL_ADDITIONAL_FLAGS += HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 KERNEL_SUPPORTS_LLVM_TOOLS := true
 TARGET_KERNEL_OPTIONAL_LD := true
 

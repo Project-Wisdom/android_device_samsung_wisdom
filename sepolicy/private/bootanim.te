@@ -1,0 +1,2 @@
+# The stock Exynos boot animation imports buffers through legacy ION.
+allow bootanim ion_device:chr_file rw_file_perms;

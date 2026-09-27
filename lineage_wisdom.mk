@@ -35,12 +35,26 @@ PRODUCT_PACKAGES += \
 # full_base.mk because the product partition is small.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# This unofficial build does not provide OTA updates; keep the updater service
-# out of RAM on the 3GB device.
-TARGET_DISABLE_LINEAGE_UPDATER := true
+# Wisdom's initial DerpFest flavor is vanilla and does not use blur. These
+# selectors must be set before common_mini_tablet imports DerpFest config.
+WITH_GMS := false
+WITH_GMS_COMMS_SUITE := false
+TARGET_SUPPORTS_BLUR := false
+TARGET_INCLUDE_ACCORD := false
+TARGET_INCLUDE_FOSSIFY_GALLERY := false
+TARGET_INCLUDE_CUSTOM_FONTS := false
+TARGET_FAKE_ENCRYPTION := false
 
-## Inherit common Lineage tablet stuff without the full optional app suite.
+# Lightweight bootanimation (<= 150 KiB) to prevent early-boot black screen.
+PRODUCT_COPY_FILES += \
+    device/samsung/wisdom/media/bootanimation.zip:$(TARGET_COPY_OUT_PRODUCT)/media/bootanimation.zip
+
+## Inherit DerpFest's common mini-tablet base without the full optional app suite.
 $(call inherit-product, vendor/lineage/config/common_mini_tablet.mk)
+
+# DerpFest's common product adds Updater unconditionally. This unofficial
+# wisdom build has no OTA update service, so keep the client out of the image.
+PRODUCT_PACKAGES := $(filter-out Updater,$(PRODUCT_PACKAGES))
 
 # Keep Settings search available while staying on the mini package set.
 PRODUCT_PACKAGES += \
@@ -58,15 +72,14 @@ PRODUCT_PACKAGES := $(filter-out \
     camera.device@3.5-impl, \
     $(PRODUCT_PACKAGES))
 
-# Device identifier. wisdom is the canonical local device path and product
-# device name; p205 remains only as the hardware/model alias for SM-P205.
+# DerpFest's breakfast helper resolves a device codename to lineage_<device>.
+# Keep this product prefix for DerpFest build integration; wisdom is the
+# canonical device path and p205 remains the hardware/model alias for SM-P205.
 PRODUCT_DEVICE := wisdom
 PRODUCT_NAME := lineage_wisdom
 PRODUCT_MODEL := SM-P205
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
-
-PRODUCT_GMS_CLIENTID_BASE := android-samsung
 
 TARGET_DISABLE_EPPE := true
 PRODUCT_CHARACTERISTICS := tablet

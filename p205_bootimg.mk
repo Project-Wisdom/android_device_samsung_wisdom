@@ -58,6 +58,7 @@ endif
 $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) $(BOOTIMAGE_EXTRA_DEPS) $(INSTALLED_KERNEL_TARGET)
 	$(call pretty,"Target boot image: $@")
 	$(hide) $(MKBOOTIMG) --kernel $(call bootimage-to-kernel,$(1)) $(INTERNAL_BOOTIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
+	$(hide) python3 -c 'import struct,sys; f=open(sys.argv[1],"r+b"); assert f.read(8)==b"ANDROID!"; f.seek(24); assert struct.unpack("<I",f.read(4))[0]==0; f.seek(40); assert struct.unpack("<I",f.read(4))[0]==1; f.seek(28); f.write(struct.pack("<I",int(sys.argv[2],0))); f.close()' $@ $(P205_BOOTIMAGE_EMPTY_SECOND_ADDR)
 	$(hide) echo -n "SEANDROIDENFORCE" >> $@
 ifeq ($(strip $(TARGET_NEEDS_LOKI)),true)
 	$(hide) $(LOKI_TOOL) patch boot $(TARGET_LOKI_ABOOT_IMAGE) $@ $@.lok
@@ -81,6 +82,7 @@ else
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) $(recovery_ramdisk) $(recovery_kernel) $(RECOVERYIMAGE_EXTRA_DEPS)
 	@echo "----- Making recovery image ------"
 	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(INTERNAL_MKBOOTIMG_VERSION_ARGS) $(BOARD_RECOVERY_MKBOOTIMG_ARGS) --output $@
+	$(hide) python3 -c 'import struct,sys; f=open(sys.argv[1],"r+b"); assert f.read(8)==b"ANDROID!"; f.seek(24); assert struct.unpack("<I",f.read(4))[0]==0; f.seek(40); assert struct.unpack("<I",f.read(4))[0]==1; f.seek(28); f.write(struct.pack("<I",int(sys.argv[2],0))); f.close()' $@ $(P205_BOOTIMAGE_EMPTY_SECOND_ADDR)
 	$(hide) echo -n "SEANDROIDENFORCE" >> $@
 ifeq ($(strip $(TARGET_NEEDS_LOKI)),true)
 	$(hide) $(LOKI_TOOL) patch recovery $(TARGET_LOKI_ABOOT_IMAGE) $@ $@.lok

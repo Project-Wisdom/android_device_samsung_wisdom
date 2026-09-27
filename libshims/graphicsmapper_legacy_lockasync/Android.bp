@@ -13,5 +13,6 @@ cc_library_shared {
         "libui",
         "libutils",
     ],
+    static_libs: ["libgrallocusage"],
     vendor: true,
 }

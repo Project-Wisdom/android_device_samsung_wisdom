@@ -1,3 +1,7 @@
 allow mediacodec sysfs_v4l_mfc:dir search;
 allow mediacodec sysfs_v4l_mfc:file { getattr open read };
 allow mediacodec sysfs_v4l:dir search;
+
+# Codec2 software codecs use the legacy Exynos ION allocator for linear buffers.
+allow mediacodec ion_device:chr_file rw_file_perms;
+allow mediaswcodec ion_device:chr_file rw_file_perms;

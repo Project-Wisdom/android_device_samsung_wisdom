@@ -11,11 +11,21 @@ on init
     write /sys/class/graphics/fb0/blank 0
 
 on fs
-    export ANDROID_ROOT /system_root
-
     # Create the bootdevice symlink so recovery can find by-name partitions.
     wait /dev/block/platform/13500000.dwmmc0
     symlink /dev/block/platform/13500000.dwmmc0 /dev/block/bootdevice
+
+    symlink /dev/block/bootdevice/by-name/BOOT /dev/block/bootdevice/by-name/boot
+    symlink /dev/block/bootdevice/by-name/RECOVERY /dev/block/bootdevice/by-name/recovery
+    symlink /dev/block/bootdevice/by-name/SYSTEM /dev/block/bootdevice/by-name/system
+    symlink /dev/block/bootdevice/by-name/VENDOR /dev/block/bootdevice/by-name/vendor
+    symlink /dev/block/bootdevice/by-name/CACHE /dev/block/bootdevice/by-name/cache
+    symlink /dev/block/bootdevice/by-name/MISC /dev/block/bootdevice/by-name/misc
+
+    # Ensure libfstab can locate recovery and standard fstab paths
+    symlink /system/etc/recovery.fstab /etc/recovery.fstab.exynos7904
+    symlink /system/etc/recovery.fstab /etc/fstab.exynos7904
+    symlink /system/etc/recovery.fstab /etc/fstab
 
 on boot
     setprop service.adb.root 1

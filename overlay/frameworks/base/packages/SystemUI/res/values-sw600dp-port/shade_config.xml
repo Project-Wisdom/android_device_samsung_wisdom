@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Use a combined shade in portrait; wide landscape remains split. -->
+    <bool name="config_isFullWidthShade">true</bool>
+</resources>

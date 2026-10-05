@@ -41,13 +41,11 @@ WITH_GMS := false
 WITH_GMS_COMMS_SUITE := false
 TARGET_SUPPORTS_BLUR := false
 TARGET_INCLUDE_ACCORD := false
-TARGET_INCLUDE_FOSSIFY_GALLERY := false
+TARGET_INCLUDE_FOSSIFY_GALLERY := true
 TARGET_INCLUDE_CUSTOM_FONTS := false
 TARGET_FAKE_ENCRYPTION := false
-
-# Lightweight bootanimation (<= 150 KiB) to prevent early-boot black screen.
-PRODUCT_COPY_FILES += \
-    device/samsung/wisdom/media/bootanimation.zip:$(TARGET_COPY_OUT_PRODUCT)/media/bootanimation.zip
+DERP_BOOTANIMATION := default
+DERP_BOOTANIMATION_DARK_DEFAULT := true
 
 ## Inherit DerpFest's common mini-tablet base without the full optional app suite.
 $(call inherit-product, vendor/lineage/config/common_mini_tablet.mk)

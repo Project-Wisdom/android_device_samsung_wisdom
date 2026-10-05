@@ -47,6 +47,11 @@ TARGET_FAKE_ENCRYPTION := false
 DERP_BOOTANIMATION := default
 DERP_BOOTANIMATION_DARK_DEFAULT := true
 
+# Linux 4.4 on Exynos 7904 does not support userfaultfd(2) / MREMAP_DONTUNMAP.
+# Disable UFFD GC so dexpreopt compiles OAT artifacts with Concurrent Copying (CC)
+# read barriers matching the runtime kernel capability.
+PRODUCT_ENABLE_UFFD_GC := false
+
 ## Inherit DerpFest's common mini-tablet base without the full optional app suite.
 $(call inherit-product, vendor/lineage/config/common_mini_tablet.mk)
 

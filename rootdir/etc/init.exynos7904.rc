@@ -295,6 +295,8 @@ on boot
     chmod 0664 /sys/devices/platform/11500000.mali/dvfs_min_lock
     chown radio system /sys/devices/platform/11500000.mali/dvfs_max_lock
     chmod 0664 /sys/devices/platform/11500000.mali/dvfs_max_lock
+    # Shorten Mali DVFS sampling window (up/down/utilization) from DT default.
+    write /sys/devices/platform/11500000.mali/polling_speed 16
 
     # Change permission for interactive governor
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/interactive/timer_rate

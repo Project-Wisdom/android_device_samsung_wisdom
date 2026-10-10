@@ -6,8 +6,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 
 # The SM-P205 product partition is only 416 MiB. Avoid full_base_telephony.mk
 # because it pulls large generic /product apps that do not fit the real device
-# layout. Keep the system/vendor pieces required for telephony bring-up, and
-# only include the small product base plus WebView.
+# layout. Keep the system/vendor pieces required for telephony bring-up and a
+# small product base; Wisdom installs the large WebView provider from /system.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_system_ext.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/handheld_vendor.mk)
@@ -20,14 +20,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/non_ab_device.mk)
 # Inherit device configuration
 $(call inherit-product, device/samsung/wisdom/device.mk)
 
-# Keep media frontends installed. Aperture is Lineage's maintained camera
-# frontend and is already part of the common full mobile set, but this minimal
-# product does not inherit that optional app suite.
+# Keep the media frontends installed. Canvas handles screenshot editing while
+# FossifyGallery provides the gallery browser; Aperture is the camera frontend.
 PRODUCT_PACKAGES += \
     Aperture \
+    Canvas \
     FlipFlap \
     FlipFlapOverlay \
-    Gallery2 \
     PhotoTable \
     Profiles
 
@@ -74,6 +73,12 @@ PRODUCT_PACKAGES := $(filter-out \
     camera.device@3.4-impl \
     camera.device@3.5-impl, \
     $(PRODUCT_PACKAGES))
+
+# AOSP's default media_product.mk places the 255 MiB WebView provider on
+# /product. Wisdom has ample /system headroom, so use the equivalent system
+# module while keeping the generic product module unchanged for other devices.
+PRODUCT_PACKAGES := $(filter-out webview,$(PRODUCT_PACKAGES))
+PRODUCT_PACKAGES += webview_system
 
 # DerpFest's breakfast helper resolves a device codename to lineage_<device>.
 # Keep this product prefix for DerpFest build integration; wisdom is the
